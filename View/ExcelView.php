@@ -48,7 +48,7 @@ class ExcelView extends View {
 		);
 
 		if (!class_exists('PHPExcel')) {
-			App::import('Vendor', 'PhpExcel', array('file' => 'phpoffice' . DS . 'phpexcel' . DS . 'Classes' . DS . 'PHPExcel' . DS . 'IOFactory.php'));
+			App::import('vendor', 'CakePHPExcel', array('file' => 'phpoffice' . DS . 'phpexcel' . DS . 'Classes' . DS . 'PHPExcel' . DS . 'IOFactory.php'));
 		}
 
 		parent::__construct($controller);
