@@ -21,6 +21,7 @@
 		"ext-gd": "*",
 		"ext-zip": "*",
 		"ext-xml": "*",
+		"composer/installers": "~1.0",
 		"phpoffice/phpexcel": "~1.8.0"
 	}
 }
