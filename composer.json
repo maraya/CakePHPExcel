@@ -18,7 +18,9 @@
 	],
 	"require": {
 		"php": ">=5.2.0",
-		"composer/installers": "*",
+		"ext-gd": "*",
+		"ext-zip": "*",
+		"ext-xml": "*",
 		"phpoffice/phpexcel": "~1.8.0"
 	}
 }
