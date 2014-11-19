@@ -16,6 +16,11 @@
 			"email": "marayag@gmail.com"
 		}
 	],
+	"extra": {
+        "installer-paths": {
+            "Vendor/{$name}": ["phpoffice/phpexcel"]
+        }
+    },
 	"require": {
 		"php": ">=5.2.0",
 		"ext-gd": "*",
