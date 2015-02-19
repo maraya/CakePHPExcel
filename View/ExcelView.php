@@ -31,9 +31,22 @@ class ExcelView extends View {
 	 * @var string
 	 */
 	public $excelConfig = array(
-		'creator' => 'CakePHPExcel <http://github.com/maraya/CakePHPExcel>',
-		'format' => 'Excel2007'
+		'creator' => 'CakePHPExcel <http://github.com/maraya/CakePHPExcel>'
 	);
+
+	/**
+	 * Excel format
+	 *
+	 * @var string
+	 */
+	public $format;
+
+	/**
+	 * Excel extension
+	 *
+	 * @var string
+	 */
+	public $ext;
 
 	/**
 	 * Constructor
@@ -47,8 +60,11 @@ class ExcelView extends View {
 			(array)$controller->excelConfig
 		);
 
-		if (!class_exists('PHPExcel')) {
-			App::import('vendor', 'CakePHPExcel', array('file' => 'phpoffice' . DS . 'phpexcel' . DS . 'Classes' . DS . 'PHPExcel' . DS . 'IOFactory.php'));
+		$this->ext = $controller->request->params['ext'];
+		$this->format = ($this->ext == 'xlsx')? 'Excel2007': 'Excel5';
+
+		if (!class_exists('PHPExcel_IOFactory')) {
+			App::import('Vendor', 'IOFactory', array('file' => 'phpoffice' . DS . 'phpexcel' . DS . 'Classes' . DS . 'PHPExcel' . DS . 'IOFactory.php'));
 		}
 
 		parent::__construct($controller);
@@ -62,25 +78,25 @@ class ExcelView extends View {
 	 * @return string The rendered view.
 	 */
 	public function render($view = null, $layout = null) {
+		$this->layoutPath = 'xls';
 		$content = parent::render($view, $layout);
-		$file = $this->createTempFile($content);
 
+		$file = $this->createTempFile($content);
 		$reader = PHPExcel_IOFactory::createReader('HTML');
+
 		$excel = $reader->load($file);
 		$this->deleteTempFile($file);
 
 		$props = $excel->getProperties();
 		$props->setCreator($this->excelConfig['creator']);
-
-		$writer = PHPExcel_IOFactory::createWriter($excel, $this->excelConfig['format']);	
+		
+		$writer = PHPExcel_IOFactory::createWriter($excel, $this->format);
 		ob_start();
 		$writer->save('php://output');
 		$excelOutput = ob_get_clean();
 
 		if (isset($this->excelConfig['filename'])) {
 			$this->response->download($this->excelConfig['filename']);
-		} else {
-			$id = current($this->request->params['pass']). '.xlsx';
 		}
 
 		$this->Blocks->set('content', $excelOutput);
@@ -94,7 +110,7 @@ class ExcelView extends View {
 	 * @return string The tempfile path.
 	 */
 	private function createTempFile($content) {
-		$file = tempnam(sys_get_temp_dir(), 'excel_');
+		$file = tempnam(sys_get_temp_dir(), 'cakephpexcel_');
     	$fp = fopen($file, "w");
     	fwrite($fp, $content);
     	fclose($fp);
