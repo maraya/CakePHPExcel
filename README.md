@@ -16,13 +16,24 @@ Installation
 Add to your composer.json file (maraya/cake-php-excel)
 
 ```
-"maraya/cake-php-excel": "1.1.*"
+"require": {
+	"maraya/cake-php-excel": "1.1.*"
+},
+"config": {
+	"vendor-dir": "Vendor/"
+},
+"extra": {
+    "installer-paths": {
+        "Plugin/CakePHPExcel": ["maraya/cake-php-excel"]
+    }
+}
+
 ```
 
-Or run
+And run
 
 ```
-composer require "maraya/cake-php-excel >=1.1"
+composer update
 ```
 
 Usage
@@ -97,6 +108,6 @@ Call the URL
 http://example.com/reports/clients.xlsx
 ```
 
-If you want to download Excel5 format, change the extension from xlsx to xls.
+If you want to download Excel5 format, change the URL extension from xlsx to xls.
 
 Inside your view file you can write HTML code. Please see the [PHPExcel](https://github.com/PHPOffice/PHPExcel) documentation for a guide on how to use PHPExcel.
