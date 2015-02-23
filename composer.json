@@ -16,6 +16,9 @@
 			"email": "marayag@gmail.com"
 		}
 	],
+	"config": {
+    	"vendor-dir": "Vendor/"
+	},
 	"require": {
 		"php": ">=5.2.0",
 		"ext-gd": "*",
