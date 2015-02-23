@@ -16,23 +16,24 @@ Installation
 Add to your composer.json file (maraya/cake-php-excel)
 
 ```
-{
-    "require": {
-                "maraya/cake-php-excel": "1.1.*"
-    },
-    "extra": {
-        "installer-paths": {
-            "Plugin/CakePHPExcel": ["maraya/cake-php-excel"]
-        }
+"require": {
+	"maraya/cake-php-excel": "1.1.*"
+},
+"config": {
+	"vendor-dir": "Vendor/"
+},
+"extra": {
+    "installer-paths": {
+        "Plugin/CakePHPExcel": ["maraya/cake-php-excel"]
     }
 }
 
 ```
 
-Or run
+And run
 
 ```
-composer require "maraya/cake-php-excel >=1.1"
+composer update
 ```
 
 Usage
